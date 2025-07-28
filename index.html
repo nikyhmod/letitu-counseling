@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Startup Correspondent - Orientation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        
+        .slide {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, #6366f1 0%, transparent 70%);
+            opacity: 0.05;
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(30px, -30px) rotate(180deg); }
+        }
+        
+        .content {
+            max-width: 1000px;
+            width: 100%;
+            z-index: 1;
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+        
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: #ffffff;
+        }
+        
+        h3 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #8b5cf6;
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            color: #a1a1aa;
+            margin-bottom: 3rem;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(139, 92, 246, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.2);
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #6366f1, #8b5cf6);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -36px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            background: #8b5cf6;
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.2);
+        }
+        
+        .highlight {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-weight: 600;
+            display: inline-block;
+            margin: 0.2rem;
+        }
+        
+        .tips {
+            background: rgba(139, 92, 246, 0.1);
+            border-left: 4px solid #8b5cf6;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+        
+        .process-flow {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .process-step {
+            flex: 1;
+            text-align: center;
+            padding: 1rem;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        
+        .process-step:not(:last-child)::after {
+            content: '→';
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            color: #8b5cf6;
+        }
+        
+        .number-circle {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .process-step h3 {
+            margin-bottom: 0.5rem;
+            min-height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .process-step p {
+            font-size: 0.95rem;
+            color: #a1a1aa;
+            line-height: 1.4;
+        }
+        
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        li {
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+            position: relative;
+        }
+        
+        li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #8b5cf6;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 3rem;
+            background: rgba(255, 255, 255, 0.05);
+            margin-top: 4rem;
+            border-radius: 16px;
+        }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            h3 { font-size: 1.5rem; }
+            .process-step:not(:last-child)::after { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Slide 1: Title -->
+    <section class="slide">
+        <div class="content">
+            <div style="font-size: 2.5rem; font-weight: 800; color: #6366f1; margin-bottom: 3rem; text-align: left;">LetiTu</div>
+            <h1>Student Startup Correspondent</h1>
+            <p class="subtitle">레티튜 스타트업 기자단 오리엔테이션</p>
+            <div class="card" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.15) 100%); border: 2px solid rgba(139, 92, 246, 0.3); position: relative; overflow: hidden;">
+                <div style="position: absolute; top: -50%; right: -10%; width: 200px; height: 200px; background: radial-gradient(circle, rgba(139, 92, 246, 0.2) 0%, transparent 70%); border-radius: 50%;"></div>
+                <p style="font-size: 1.3rem; line-height: 2; font-weight: 500; position: relative; z-index: 1;">
+                    <span style="background: linear-gradient(to right, #6366f1, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700;">스타트업의 이야기</span>를 발굴하고 전달하는<br>
+                    <span style="font-size: 1.5rem; font-weight: 700; color: #8b5cf6;">특별한 경험의 시작</span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 2: 프로젝트 개요 -->
+    <section class="slide">
+        <div class="content">
+            <h2>🚀 프로젝트 소개</h2>
+            <div class="grid">
+                <div class="card">
+                    <div class="icon">📝</div>
+                    <h3>미션</h3>
+                    <p>학생이 직접 스타트업을 인터뷰하고 기사를 작성하여 혁신적인 스토리를 발굴합니다</p>
+                </div>
+                <div class="card">
+                    <div class="icon">🎯</div>
+                    <h3>목표</h3>
+                    <p>실전 경험을 통해 테크 저널리즘 역량을 키우고 스타트업 생태계를 이해합니다</p>
+                </div>
+                <div class="card">
+                    <div class="icon">🏆</div>
+                    <h3>혜택</h3>
+                    <p>작성 기사는 공식 채널에 발행되며, 우수 기자에게는 특별한 시상이 주어집니다</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 3: 기자 마인드셋 -->
+    <section class="slide">
+        <div class="content">
+            <h2>💡 스타트업 기자의 마인드셋</h2>
+            
+            <div class="card">
+                <h3>호기심과 탐구정신</h3>
+                <ul>
+                    <li>단순한 정보 전달을 넘어 'Why'를 파고드는 질문하기</li>
+                    <li>스타트업이 해결하려는 진짜 문제 이해하기</li>
+                    <li>트렌드 속에서 본질 찾아내기</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3>객관성과 균형감</h3>
+                <ul>
+                    <li>팩트 체크를 통한 정확한 정보 전달</li>
+                    <li>다양한 관점에서 스토리 바라보기</li>
+                    <li>비판적 사고와 건설적 피드백의 균형</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3>스토리텔링 능력</h3>
+                <ul>
+                    <li>복잡한 기술을 쉽게 설명하기</li>
+                    <li>독자의 관심을 끄는 매력적인 서사 구성</li>
+                    <li>데이터와 인간적 스토리의 조화</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 4: 활동 프로세스 -->
+    <section class="slide">
+        <div class="content">
+            <h2>📋 기사 작성 프로세스</h2>
+            
+            <div class="process-flow">
+                <div class="process-step">
+                    <div class="number-circle">1</div>
+                    <h3>기업 선정</h3>
+                    <p>관심 있는 스타트업<br>리서치 및 제안</p>
+                </div>
+                <div class="process-step">
+                    <div class="number-circle">2</div>
+                    <h3>사전 조사</h3>
+                    <p>기업 정보,<br>시장 현황 파악</p>
+                </div>
+                <div class="process-step">
+                    <div class="number-circle">3</div>
+                    <h3>인터뷰</h3>
+                    <p>창업자/팀원과의<br>심층 대화</p>
+                </div>
+                <div class="process-step">
+                    <div class="number-circle">4</div>
+                    <h3>기사 작성</h3>
+                    <p>스토리 구성 및<br>초안 작성</p>
+                </div>
+                <div class="process-step">
+                    <div class="number-circle">5</div>
+                    <h3>피드백</h3>
+                    <p>멘토 검토 및<br>수정</p>
+                </div>
+            </div>
+            
+            <div class="tips">
+                <p><strong>💡 Pro Tip:</strong> 각 단계마다 충분한 시간을 할애하세요. 특히 사전 조사는 좋은 인터뷰의 기초가 됩니다!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 5: 인터뷰 가이드 -->
+    <section class="slide">
+        <div class="content">
+            <h2>🎤 효과적인 인터뷰 전략</h2>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h3>인터뷰 전</h3>
+                    <ul>
+                        <li>기업의 제품/서비스 직접 사용해보기</li>
+                        <li>최근 뉴스, 투자 유치 소식 체크</li>
+                        <li>경쟁사 분석 및 시장 트렌드 파악</li>
+                        <li>질문 리스트 준비 (15-20개)</li>
+                    </ul>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3>인터뷰 중</h3>
+                    <ul>
+                        <li>아이스브레이킹으로 편안한 분위기 조성</li>
+                        <li>Open-ended 질문으로 시작</li>
+                        <li>구체적인 사례와 숫자 요청</li>
+                        <li>예상치 못한 답변에 유연하게 대응</li>
+                    </ul>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3>인터뷰 후</h3>
+                    <ul>
+                        <li>24시간 내 감사 메일 발송</li>
+                        <li>녹음/메모 정리 및 핵심 포인트 추출</li>
+                        <li>추가 질문사항 정리 및 팔로업</li>
+                        <li>기사 초안 작성 시작</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 6: 기사 작성 팁 -->
+    <section class="slide">
+        <div class="content">
+            <h2>✍️ 매력적인 기사 작성법</h2>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3>헤드라인</h3>
+                    <p>독자의 시선을 사로잡는 제목</p>
+                    <div class="tips" style="margin-top: 1rem;">
+                        <p>✓ 핵심 가치를 한 문장으로<br>
+                        ✓ 숫자나 구체적 성과 활용<br>
+                        ✓ 호기심 유발하는 질문형</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>리드문</h3>
+                    <p>기사의 첫인상을 결정하는 도입부</p>
+                    <div class="tips" style="margin-top: 1rem;">
+                        <p>✓ 5W1H 요약<br>
+                        ✓ 임팩트 있는 통계나 사실<br>
+                        ✓ 스토리의 핵심 제시</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>본문 구성</h3>
+                    <p>논리적이고 읽기 쉬운 스토리 전개</p>
+                    <div class="tips" style="margin-top: 1rem;">
+                        <p>✓ 역피라미드 구조 활용<br>
+                        ✓ 한 단락 = 하나의 아이디어<br>
+                        ✓ 전문용어는 쉽게 풀어쓰기</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card" style="background: rgba(99, 102, 241, 0.1);">
+                <h3>🌟 기억하세요!</h3>
+                <p>좋은 기사는 정보 전달을 넘어 독자에게 인사이트를 제공합니다. 
+                '이 스타트업이 왜 중요한가?', '독자에게 어떤 가치를 주는가?'를 항상 고민하세요.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 7: 주의사항 및 윤리 -->
+    <section class="slide">
+        <div class="content">
+            <h2>⚖️ 기자 윤리와 주의사항</h2>
+            
+            <div class="card">
+                <h3>필수 준수사항</h3>
+                <ul>
+                    <li><span class="highlight">정확성</span> 모든 정보는 반드시 사실 확인 후 게재</li>
+                    <li><span class="highlight">공정성</span> 특정 기업에 대한 편향 없이 객관적 시각 유지</li>
+                    <li><span class="highlight">투명성</span> 이해관계가 있을 경우 명시</li>
+                    <li><span class="highlight">비밀유지</span> Off the record 내용은 절대 공개 금지</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3>실수하기 쉬운 부분</h3>
+                <ul>
+                    <li>홍보성 기사가 되지 않도록 주의</li>
+                    <li>경쟁사 비방이나 근거 없는 비판 자제</li>
+                    <li>저작권 있는 이미지/자료 무단 사용 금지</li>
+                    <li>인터뷰이의 발언 왜곡이나 과장 금지</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 8: 활동 일정 -->
+    <section class="slide">
+        <div class="content">
+            <h2>📅 활동 일정 및 마일스톤</h2>
+            
+            <div class="card" style="background: rgba(99, 102, 241, 0.1); margin-bottom: 2rem;">
+                <p><strong>📌 참고사항:</strong> 아래 일정은 예시이며, 기자단 개인의 사정에 따라 일정은 유동적으로 조정될 수 있습니다.</p>
+            </div>
+            
+            <div class="card">
+                <h3>예시 일정</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h4>1-2주차</h4>
+                        <p>오리엔테이션 및 기초 교육<br>
+                        취재 기업 선정 및 제안서 작성</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>3-4주차</h4>
+                        <p>기업 리서치 및 인터뷰 준비<br>
+                        인터뷰 진행 및 자료 수집</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>5-6주차</h4>
+                        <p>기사 초안 작성<br>
+                        멘토 피드백 및 수정</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>7-8주차</h4>
+                        <p>최종 기사 제출<br>
+                        발행 및 성과 공유</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tips">
+                <p><strong>📌 진행상황 공유 세션:</strong> 매주 정기적으로 진행상황 공유 세션이 열립니다(선택 참여). 카카오톡 단체톡방에서 다른 기자들과 경험을 나누고 서로 피드백을 주고받을 수 있습니다!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 9: 성공 사례 및 팁 -->
+    <section class="slide">
+        <div class="content">
+            <h2>🌟 성공적인 기자 활동을 위한 팁</h2>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3>네트워킹</h3>
+                    <ul>
+                        <li>다른 기자들과 정보 공유</li>
+                        <li>스타트업 행사 참여</li>
+                        <li>LinkedIn 프로필 관리</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>지속적 학습</h3>
+                    <ul>
+                        <li>테크 뉴스 일일 체크</li>
+                        <li>산업 리포트 읽기</li>
+                        <li>새로운 기술 트렌드 파악</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>포트폴리오</h3>
+                    <ul>
+                        <li>작성 기사 아카이빙</li>
+                        <li>개인 블로그 운영</li>
+                        <li>소셜미디어 활용</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="card" style="background: rgba(139, 92, 246, 0.1); margin-top: 2rem;">
+                <h3>💬 저널리즘의 본질</h3>
+                <p style="font-style: italic; line-height: 1.8; font-size: 1.1rem;">
+                    "Journalism is printing what someone else does not want printed;<br>
+                    everything else is public relations."
+                </p>
+                <p style="text-align: right; margin-top: 1rem; color: #a1a1aa;">- George Orwell</p>
+                <p style="margin-top: 1.5rem; font-style: normal;">
+                    좋은 기사는 표면 아래 숨겨진 진실을 발굴하고, 독자에게 새로운 시각을 제공합니다.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 10: Q&A 및 연락처 -->
+    <section class="slide">
+        <div class="content">
+            <div class="footer">
+                <h2>이제 시작입니다!</h2>
+                <p style="font-size: 1.3rem; margin: 2rem 0; line-height: 1.8;">
+                    여러분은 이제 스타트업 생태계의 이야기를 전하는<br>
+                    <span class="highlight">레티튜 스타트업 기자단</span>입니다.
+                </p>
+                
+                <div class="card" style="max-width: 600px; margin: 2rem auto;">
+                    <h3>📞 Contact & Support</h3>
+                    <p style="margin-bottom: 1rem;">궁금한 점이 있거나 도움이 필요하면 언제든 연락주세요!</p>
+                    <p>
+                        <strong>이메일:</strong> counseling@letitu.io<br>
+                        <strong>전화:</strong> 010-5253-9660
+                    </p>
+                </div>
+                
+                <p style="margin-top: 3rem; font-size: 1.1rem;">
+                    <strong>화이팅! 여러분의 멋진 스토리를 기대합니다 ✨</strong>
+                </p>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
